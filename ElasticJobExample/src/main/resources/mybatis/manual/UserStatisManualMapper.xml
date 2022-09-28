@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper
+	namespace="com.javadevmap.elasticjobexample.model.mapper.UserStatisManualMapper">
+
+
+	<select id="existTable" parameterType="String" resultType="Integer">
+		select count(1)
+		from INFORMATION_SCHEMA.TABLES
+		where
+		TABLE_NAME=#{tableName}
+	</select>
+
+	<update id="createTable" parameterType="String">
+		create table if not
+		exists `${tableName}` (
+		`userid` bigint(20) not null,
+		`statisprice`
+		double not null,
+		primary key (`userid`))
+	</update>
+
+	<insert id="insertUserStatis" parameterType="Map">
+		insert into `${tableName}` (userid,statisprice) values (#{userStatis.userid,jdbcType=BIGINT},#{userStatis.statisPrice,jdbcType=DOUBLE})
+	</insert>
+
+</mapper>	

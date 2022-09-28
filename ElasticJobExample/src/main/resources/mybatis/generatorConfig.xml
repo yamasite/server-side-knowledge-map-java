@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+    <!-- db driver -->
+    <!--<classPathEntry location="E:\workSpace\myMaven\mysql\mysql-connector-java\5.1.26\mysql-connector-java-5.1.26.jar" />-->
+    <classPathEntry location="C:\Users\T460\.m2\repository\mysql\mysql-connector-java\5.1.44\mysql-connector-java-5.1.44.jar" />
+    <!-- introspectedColumnImpl prop define special column reflect -->
+    <context id="mysqlStepyee" targetRuntime="MyBatis3" >
+        <!-- generator or not comments (extend DefaultCommentGenerator to special)-->
+	    <commentGenerator>
+	      <property name="suppressAllComments" value="true" />
+	      <property name="suppressDate" value="true" />
+	    </commentGenerator>
+    
+        <!-- db source -->
+        <jdbcConnection driverClass="com.mysql.jdbc.Driver"
+                        connectionURL="jdbc:mysql://39.106.10.196:3306/javadevmap?autoReconnect=true&amp;useUnicode=true&amp;characterEncoding=utf8"
+                        userId="root"
+                        password="mypass">
+        </jdbcConnection>
+
+        <!-- type reflect setting (type prop implements JavaTypeResolver to special type reflect)-->
+        <!-- <javaTypeResolver type="com.operation.mybatis.generator.types.JavaTypeResolverImpl">-->
+        <javaTypeResolver>
+            <property name="forceBigDecimals" value="false"/>
+        </javaTypeResolver>
+
+        <!-- generator javeBean、example Criteria -->
+        <javaModelGenerator targetPackage="com.javadevmap.elasticjobexample.model" targetProject="src\main\java">
+            <property name="enableSubPackages" value="true"/>
+            <property name="trimStrings" value="true"/>
+        </javaModelGenerator>
+
+        <!-- generator xml mapper -->
+        <sqlMapGenerator targetPackage="mybatis.sqlmap" targetProject="src\main\resources">
+            <property name="enableSubPackages" value="true"/>
+        </sqlMapGenerator>
+
+        <!-- generator java client annotation mapper -->
+        <javaClientGenerator type="MIXEDMAPPER" targetPackage="com.javadevmap.elasticjobexample.model.mapper" targetProject="src\main\java">
+            <property name="enableSubPackages" value="true"/>
+        </javaClientGenerator>
+
+      <!--Run As  Maven build... goals mybatis-generator:generate -->
+        <table tableName="order_job" schema="javadevmap"/>
+    </context>
+</generatorConfiguration>
+
+

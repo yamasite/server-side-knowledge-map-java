@@ -1,0 +1,31 @@
+server:
+  port: 18085
+spring:
+  application:
+    name: elasticjob-example
+  datasource: 
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://39.106.10.196:3306/javadevmap?characterEncoding=utf-8
+    username: root
+    password: mypass
+    
+mybatis:
+  type-aliases-package: com.javadevmap.elasticjobexample.*.model
+  mapper-locations: classpath:/mybatis/sqlmap/*.xml,classpath:/mybatis/manual/*.xml
+  config-location: classpath:/mybatis/mybatis-config.xml
+    
+regCenter: 
+  serverList: 39.106.10.196:2181
+  namespace: jdmelasticjob
+  
+simpleJob: 
+#cron 为定时器，可以设置时间间隔，也可以设置指定时间
+  cron: 0 0 0/1 * * ?
+  shardingTotalCount: 3
+  shardingItemParameters: 0=A,1=B,2=C
+  
+dataflowJob: 
+  cron: 0 0 2 * * ?
+#  cron: 0/10 * * * * ?
+  shardingTotalCount: 3
+  shardingItemParameters: 0=A,1=B,2=C

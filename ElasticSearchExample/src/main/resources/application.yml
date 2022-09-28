@@ -1,0 +1,20 @@
+server:
+  port: 18093
+spring:
+  application:
+    name: elasticsearch-example
+  data:
+    elasticsearch:
+      cluster-name: elasticsearch
+      cluster-nodes: 39.106.208.144:9300
+      repositories:
+        enabled: true
+
+#elasticSearch 2.4.0
+#39.106.208.144:9200
+
+#elasticSearch5.5.2
+#39.107.230.91:9200
+
+#http://39.106.208.144:9200/_plugin/head/
+#http://39.107.230.91:9200/_plugin/head/
