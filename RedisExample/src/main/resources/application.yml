@@ -1,0 +1,16 @@
+server:
+  port: 18081
+spring:
+  application:
+    name: redis-example
+  redis:
+    database: 0
+    host: 39.106.10.196
+    port: 6379
+    password: mypass
+    pool:
+      max-active: 1000
+      max-wait: 1000
+      max-idle: 300
+      min-idle: 100
+    timeout: 1200

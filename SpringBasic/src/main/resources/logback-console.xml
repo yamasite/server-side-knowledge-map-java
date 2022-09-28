@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+ 	<!--格式化输出：%d表示日期，%thread表示线程名，%level：日志级别，%msg：日志消息，%n是换行符--> 
+	<property name="consoleLayoutPattern"
+		value="%-20(%d{yyyyMMdd_HH:mm:ss.SSS} [%logger][%thread]) [%level] %msg%n" />
+	<!-- 控制台输出 -->
+	<appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+		<layout name="StandardFormat" class="ch.qos.logback.classic.PatternLayout">
+			<pattern>${consoleLayoutPattern}</pattern>
+		</layout>
+	</appender>
+
+	<root level="DEBUG">
+		<appender-ref ref="CONSOLE" /> <!-- 控制台输出 -->
+	</root>
+</configuration>

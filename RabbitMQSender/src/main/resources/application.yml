@@ -1,0 +1,10 @@
+server:
+  port: 18083
+spring: 
+  application:
+    name: rabbitmq-sender
+  rabbitmq:
+    host: 39.106.10.196
+    port: 5673
+    username: guest
+    password: guest

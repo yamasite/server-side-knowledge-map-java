@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd">
+
+
+	<!--指定要扫描的包，如果有多个可以用逗号隔开-->
+	<context:component-scan base-package="com.javadevmap"></context:component-scan>
+	<!-- 通知 -->
+	<bean id="advice" class="com.javadevmap.bean.AdvicesBean"></bean>
+	<!-- AOP配置 -->
+	<!-- proxy-target-class属性表示被代理的类是否为一个没有实现接口的类，Spring会依据实现了接口则使用JDK内置的动态代理，如果未实现接口则使用cblib -->
+	<aop:config proxy-target-class="true">
+		<!-- 切面配置 -->
+		<!--ref表示通知对象的引用 -->
+		<aop:aspect ref="advice">
+			<!-- 配置切入点(横切逻辑将注入的精确位置) -->
+			<aop:pointcut
+				expression="execution(* com.javadevmap.service.ProductService.*(..))"
+				id="pointcut1" />
+			<!--声明通知，method指定通知类型，pointcut指定切点，就是该通知应该注入那些方法中 -->
+			<aop:before method="before" pointcut-ref="pointcut1" />
+			<aop:after method="after" pointcut-ref="pointcut1" />
+			<aop:around method="around"
+				pointcut="execution(* com.javadevmap.service.ProductService.*(..))" />
+			<aop:after-throwing method="afterThrowing"
+				pointcut="execution(* com.javadevmap.service.ProductService.*(..))"
+				throwing="exp" />
+			<aop:after-returning method="afterReturning"
+				pointcut="execution(* com.javadevmap.service.ProductService.*(..))"
+				returning="result" />
+		</aop:aspect>
+	</aop:config>
+</beans>

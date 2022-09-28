@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+	<property name="SYS_LOG_DIR" value="d:/logbackDir" />
+	<property name="LOG_FILE" value="app.log" />
+	<!--格式化输出：%d表示日期，%thread表示线程名，%level：日志级别，%msg：日志消息，%n是换行符-->
+	<property name="fileLayoutPattern"
+		value="%-20(%d{yyyyMMdd_HH:mm:ss.SSS} [%logger{10}][%thread]) [%level] %msg%n" />
+	<property name="consoleLayoutPattern"
+		value="%-20(%d{yyyyMMdd_HH:mm:ss.SSS} [%logger][%thread]) [%level] %msg%n" />
+
+	<appender name="LOG_ROLLING"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>${SYS_LOG_DIR}/${LOG_FILE}</file>
+		<!-- 日志过滤器，只记录warn级别日志 ,若要配置其他级别，复制appender，修改level，并在root中配置 -->
+		<!-- <filter class="ch.qos.logback.classic.filter.LevelFilter"> 
+			<level>WARN</level>
+			<onMatch>ACCEPT</onMatch>
+			<onMismatch>DENY</onMismatch>
+		</filter> -->
+		<!-- DEBUG INFO WARN ERROR FATAL -->
+		<filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+			<level>ERROR</level>
+		</filter>
+
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>${SYS_LOG_DIR}/%d{yyyy-MM-dd}/${LOG_FILE}_%d{yyyy-MM-dd}_%i.zip
+			</fileNamePattern>
+			<maxHistory>7</maxHistory>
+			<timeBasedFileNamingAndTriggeringPolicy
+				class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+				<maxFileSize>1MB</maxFileSize>
+			</timeBasedFileNamingAndTriggeringPolicy>
+		</rollingPolicy>
+		<layout>
+			<pattern>${fileLayoutPattern}</pattern>
+		</layout>
+	</appender>
+
+	<!-- 控制台输出 -->
+	<appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+		<layout name="StandardFormat" class="ch.qos.logback.classic.PatternLayout">
+			<pattern>${consoleLayoutPattern}</pattern>
+		</layout>
+	</appender>
+
+	<root level="DEBUG">
+		<appender-ref ref="CONSOLE" /> <!-- 控制台输出 -->
+		<appender-ref ref="LOG_ROLLING" /> <!-- 文件输出 -->
+	</root>
+</configuration>
