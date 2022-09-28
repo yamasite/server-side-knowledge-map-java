@@ -1,0 +1,12 @@
+server:
+  port: 18091
+spring:
+  application:
+    name: mongodb-example
+  data:
+    mongodb:
+      host: 39.107.230.169
+      port: 27017
+      database: admin
+      username: root
+      password: root

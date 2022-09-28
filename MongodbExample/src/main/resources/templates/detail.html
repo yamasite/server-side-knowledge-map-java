@@ -1,0 +1,19 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>商品详情页面</title>
+    <link rel="stylesheet" href="/product.css"/>
+</head>
+<body>
+<div class="switchable-panel">
+    <div>
+        <label style="font-size:48px;display:block;width:100%;text-align:center" th:text="${tips}"></label>
+    </div>
+    <div></div>
+    <div class="panel-intro"  th:utext="${desc}"  >
+    </div>
+
+</div>
+
+</body>
+</html>

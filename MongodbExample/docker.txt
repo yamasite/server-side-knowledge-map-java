@@ -1,0 +1,19 @@
+docker pull  mongo
+docker run  --name dev-mongo   -p 27017:27017   -d mongo   --auth
+
+docker    exec  -it  容器ID   /bin/bash
+
+进入容器后，执行以下命令
+#> mongo
+#> use admin
+#> db.createUser({user:"root",pwd:"root",roles:[{role:'root',db:'admin'}]})   //创建用户,此用户创建成功,则后续操作都需要用户认证
+#> exit
+
+
+进入mongodb shell 客户端
+docker    exec  -it  容器ID   /bin/bash
+
+执行以下命令： 用root用户进行登录
+mongo localhost:27017/admin -u root -p
+
+show dbs   // 打印所有数据库
