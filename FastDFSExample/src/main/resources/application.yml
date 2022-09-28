@@ -1,0 +1,5 @@
+server:
+  port: 18095
+spring:
+  application:
+    name: fastdfs-example

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<body>
+
+<h1>Spring Boot FastDFS 上传成功页面 </h1>
+
+<div th:if="${message}">
+    <h4 th:text="${message}"/>
+</div>
+<div th:if="${path}">
+    下载路径：<h4 th:text="${path}"/>
+    组名称：<h4 th:text="${groupName}"/>
+    文件名：<h4 th:text="${remoteFileName}"/>
+</div>
+<div th:if="${ext}">
+    <img th:src="${path}"/>
+</div>
+
+<form method="POST" action="/download" >
+    <input type="hidden" name="groupName" th:value="${groupName}" /><br/>
+    <input type="hidden" name="remoteFileName" th:value="${remoteFileName}" /><br/>
+    <input type="submit" value="下载文件" />
+</form>
+
+</body>
+</html>
