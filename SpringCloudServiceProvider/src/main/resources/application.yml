@@ -1,0 +1,93 @@
+server:
+  port: 18010
+spring:
+  application:
+    name: service-provider
+  datasource: 
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://172.17.238.238:3306/javadevmap?characterEncoding=utf-8
+    username: root
+    password: mypass
+  rabbitmq:
+    host: 172.17.238.238
+    port: 5673
+    username: guest
+    password: guest
+#  zipkin:
+##    locator:
+##      discovery:
+##        enabled: true
+#    enabled: true
+#    sender:
+#      type: rabbit
+##    base-url: http://172.17.238.237:18060
+  sleuth:
+    stream:
+      enabled: true
+    enabled: true
+    rxjava: 
+      schedulers:
+        hook:
+          enabled: false
+    sampler:
+      percentage: 1.0
+eureka:
+#localhost config
+#  instance:
+#    hostname: localhost
+#    status-page-url: http://${spring.cloud.client.ipAddress}:${server.port}/info
+#  client:
+#    service-url:
+#      defaultZone: http://localhost:18001/eureka/
+#milti config
+#  instance:
+#    hostname: service-provider
+#    instance-id: ${spring.cloud.client.ipAddress}:${server.port}
+#    prefer-ip-address: true
+#  client: 
+#    service-url: 
+#      defaultZone: http://eureka-serverA:18001/eureka/,http://eureka-serverB:18002/eureka/
+#ip config
+  instance:
+    hostname: service-provider
+    instance-id: ${spring.cloud.client.ipAddress}:${server.port}
+    prefer-ip-address: true
+    metadata-map: 
+      cluster: main
+  client:
+    region: javadevmap
+    availability-zones: 
+      javadevmap: map_eureka
+    service-url: 
+      map_eureka: http://172.17.238.237:18001/eureka/,http://172.17.238.239:18001/eureka/
+
+mybatis:
+  type-aliases-package: com.javadevmap.serviceprovider.*.model
+  mapper-locations: classpath:/mybatis/sqlmap/*.xml
+  config-location: classpath:/mybatis/mybatis-config.xml
+
+hystrix:    
+  threadpool:  
+    default:  
+      coreSize: 100
+  command: 
+    default: 
+      execution: 
+        isolation: 
+          thread:
+            timeoutInMilliseconds: 2000
+
+custom: 
+  foo: provider application config version 1
+
+info:
+  author: hw
+  book: javadevmap
+  project: service provider demo
+endpoints: 
+  shutdown:
+    enabled: true
+    sensitive: false
+  refresh:
+    enabled: true
+    sensitive: false

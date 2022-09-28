@@ -1,0 +1,9 @@
+server:
+  port: 18094
+spring:
+  application:
+    name: zookeeper-example
+
+zk:
+  address: 39.106.10.196:2181
+  connectionTimeout: 5000

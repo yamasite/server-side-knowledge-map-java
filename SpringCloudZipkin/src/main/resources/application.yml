@@ -1,0 +1,58 @@
+server:
+  port: 18060
+
+spring:
+  application:
+    name: zipkin-server
+  rabbitmq:
+    host: 172.17.238.238
+    port: 5673
+    username: guest
+    password: guest
+  sleuth: 
+    enabled: false
+  datasource: 
+    schema: classpath:/mysql.sql
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://172.17.238.238:3306/springcloudzipkin
+    username: root
+    password: mypass
+    initialize: true
+    continue-on-error: true
+#zipkin: 
+#  storage:
+#    type: mysql
+zipkin: 
+  storage:
+    type: elasticsearch
+    elasticsearch:
+      cluster: elasticsearch
+      hosts: http://172.17.238.238:9200
+      index: zipkin
+      index-shards: 5
+      index-replicas: 1
+eureka:
+  instance:
+    hostname: zipkin-server
+    instance-id: ${spring.cloud.client.ipAddress}:${server.port}
+    prefer-ip-address: true
+    metadata-map: 
+      cluster: main
+  client: 
+#    service-url: 
+#      defaultZone: http://eureka-serverA:18001/eureka/,http://eureka-serverB:18002/eureka/
+    region: javadevmap
+    availability-zones: 
+      javadevmap: map_eureka
+    service-url: 
+      map_eureka: http://172.17.238.237:18001/eureka/,http://172.17.238.239:18001/eureka/
+
+info:
+  author: hw
+  book: javadevmap
+  project: zipkin demo
+endpoints: 
+  shutdown:
+    enabled: true
+    sensitive: false
+    

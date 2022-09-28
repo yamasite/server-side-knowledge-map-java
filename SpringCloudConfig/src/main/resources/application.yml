@@ -1,0 +1,53 @@
+server:
+  port: 18050
+  
+spring: 
+  application:
+    name: config-server
+  cloud:
+    config: 
+      server: 
+        git: 
+          uri: https://gitee.com/hwhe/SpringCloudConfig.git
+          search-paths: configs
+          username: your@foxmail.com
+          password: yourpassword
+#        default-label: dev
+  rabbitmq:
+    host: 172.17.238.238
+    port: 5673
+    username: guest
+    password: guest
+
+security: 
+  user:
+    name: user
+    password: password
+
+eureka:
+  instance:
+    hostname: config-server
+    prefer-ip-address: true
+    instance-id: ${spring.cloud.client.ipAddress}:${server.port}
+    metadata-map: 
+      cluster: main
+  client: 
+#    service-url: 
+#      defaultZone: http://eureka-serverA:18001/eureka/,http://eureka-serverB:18002/eureka/
+    region: javadevmap
+    availability-zones: 
+      javadevmap: map_eureka
+    service-url: 
+      map_eureka: http://172.17.238.237:18001/eureka/,http://172.17.238.239:18001/eureka/
+
+info:
+  author: hw
+  book: javadevmap
+  project: service config demo
+endpoints: 
+  shutdown:
+    enabled: true
+    sensitive: false
+#  refresh: 
+#    enabled: true
+#    sensitive: false

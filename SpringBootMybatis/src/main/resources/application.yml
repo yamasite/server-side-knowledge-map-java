@@ -1,0 +1,25 @@
+server: 
+  port: 18089
+  tomcat:
+    min-spare-threads: 30
+    
+spring: 
+  application:
+    name: SpringBootMybatis
+  datasource: 
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://39.106.10.196:3306/javadevmap?characterEncoding=utf-8
+    username: root
+    password: mypass
+    
+mybatis:
+  type-aliases-package: com.javadevmap.mybatis.*.model
+  mapper-locations: classpath:/mybatis/sqlmap/*.xml
+  config-location: classpath:/mybatis/mybatis-config.xml
+  
+#logging:
+#  level: 
+#    root: DEBUG
+#  pattern:
+#    console: "%d - %msg%n"
+#  path: /logs
